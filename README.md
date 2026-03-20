@@ -32,7 +32,7 @@ style: |
     margin: 10px 0;
   }
   .info::before {
-    content: "🛈️ ";
+    content: "📝";
   }
 ---
 
@@ -57,7 +57,7 @@ style: |
 - HTTP（Hypertext Transfer Protocol） の最新バージョン
   - RFC 9114 として標準化された
 - QUIC（**UDPベース**）上で動作
-- 暗号化（TLS-1.3）必須
+- 暗号化（TLS 1.3）必須
 - 不安定な環境でも、低遅延かつ安定した接続を実現
 
 <div class="info">
@@ -83,7 +83,7 @@ style: |
 
 # 使い方
 
-- **HttpClient** または **HttpReuqest** でオプションを設定する
+- **HttpClient** または **HttpReuqest** で設定する
   - **Version.HTTP_3**
   - **HttpOption.H3_DISCOVERY**（任意）
 - これ以外は、今までと同じ
@@ -120,15 +120,17 @@ void main() throws java.io.IOException, InterruptedException {
 
 ---
 
-# H3_DISCOVERY の enum 値
+# オプション設定
 
-- ANY （デフォルト）
-- ALT_SVC
-- HTTP_3_URI_ONLY
+- HTTP/3 の発見方法をオプションで指定する
+- 指定する値は **HttpOption.Http3DiscoveryMode**（enum）のいずれか
+    - ANY （デフォルト）
+    - ALT_SVC
+    - HTTP_3_URI_ONLY
 
 ---
 
-# H3_DISCOVERY.ANY
+## ANY
 
 - 実装固有の方法で、HTTP/3 を使用する
 - 現状の OpenJDK 実装だと…
@@ -137,11 +139,11 @@ void main() throws java.io.IOException, InterruptedException {
 
 <hr>
 
-- サーバが HTTP/3 に対応していないと、初回はタイムアウトするまで待つ（2.75s）のでちょっと遅い
+- サーバが HTTP/3 に対応していないと、初回はタイムアウトするまで待つ（2.75s）ことがある
 
 ---
 
-# H3_DISCOVERY.ALT_SVC
+## ALT_SVC
 
 1. **HTTP/2 で**接続する
 2. レスポンスヘッダーに `alt-svc: h3` が含まれていたら、次回からそのドメインに対して HTTP/3 で接続する
@@ -154,7 +156,7 @@ void main() throws java.io.IOException, InterruptedException {
 
 ---
 
-# H3_DISCOVERY.H3_DISCOVERY
+## H3_DISCOVERY
 
 1. **HTTP/3 で**接続を試みる
 2. 失敗（拒否された、またはタイムアウトした）したら例外
@@ -184,3 +186,4 @@ void main() throws java.io.IOException, InterruptedException {
 - [\[JDK-8349910\] Implement JEP 517: HTTP/3 for the HTTP Client API - Java Bug System](https://bugs.openjdk.org/browse/JDK-8349910)
 - [8349910: Implement JEP 517: HTTP/3 for the HTTP Client API · openjdk/jdk@e8db14f · GitHub](https://github.com/openjdk/jdk/commit/e8db14f584fa92db170e056bc68074ccabae82c9#diff-4201fd070e7f248730b1637f8c7bd8a1b78ae78de2818a8dbf75c5bc70581f3a)
 - [HttpClient (Java SE 26 & JDK 26)](https://docs.oracle.com/en/java/javase/26/docs/api/java.net.http/java/net/http/HttpClient.html)
+- [HTTPが全てを飲み込む（前編）～HTTPの2層構造と、HTTP Semanticsとは何か？ － Publickey](https://www.publickey1.jp/blog/24/httphttp2http_semantics.html)
