@@ -59,17 +59,14 @@ https://github.com/YujiSoftware/jep517/
 # そもそも HTTP/3 とは？
 
 - HTTP（Hypertext Transfer Protocol） の最新バージョン
-  - RFC 9114 として標準化された
+  - RFC 9114 として2022年に標準化された
+  - 主要ブラウザは対応済み
 - **QUIC（UDPベース）** 上で動作
   - 不安定な環境でも、低遅延かつ安定した接続を実現
 
-<div class="info">
-  高速で安定した環境の場合、HTTP/2よりも遅くなるとも言われている
-</div>
-
 ---
 
-# HTTP のレイヤー
+# HTTP の構造
 
 ![height:500 center](img/http_layer.svg)
 
@@ -138,7 +135,7 @@ void main() throws java.io.IOException, InterruptedException {
 - 実装固有の方法で、HTTP/3 を使用する
 - 現状の OpenJDK 実装だと…
   1. **HTTP/3 で**接続を試みる
-  2. 失敗（拒否された、またはタイムアウトした）したら、以降そのドメインは HTTP/2 にフォールバック
+  2. 失敗（拒否された、またはタイムアウトした）したら、以降そのドメインは HTTP/2（or 1.1）にフォールバック
 
 <hr>
 
@@ -148,13 +145,13 @@ void main() throws java.io.IOException, InterruptedException {
 
 ## ALT_SVC
 
-1. **HTTP/2 で**接続する
+1. **HTTP/2（or 1.1）で**接続する
 2. レスポンスヘッダーに `alt-svc: h3` が含まれていたら、次回からそのドメインに対して HTTP/3 で接続する
 
 <hr>
 
 - ブラウザと同じ挙動
-- HTTPS RR（リソースレコード）には未対応
+- DNS の HTTPS RR（リソースレコード）には未対応
 
 ---
 
@@ -174,9 +171,9 @@ void main() throws java.io.IOException, InterruptedException {
 # まとめ
 
 - Java 26 で JEP 517 が入った
-  - HttpClient が HTTP/3 に対応した
+  - HTTP Client API が HTTP/3 に対応した
 - 使い方はとても簡単
-  - ただし、オプションの指定に注意
+  - オプションの指定で挙動が変わる点に注意
 
 - ぜひ使ってみましょう！
 

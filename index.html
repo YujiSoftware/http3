@@ -216,7 +216,8 @@ img[alt~=&quot;center&quot;] {
 <ul>
 <li>HTTP（Hypertext Transfer Protocol） の最新バージョン
 <ul>
-<li>RFC 9114 として標準化された</li>
+<li>RFC 9114 として2022年に標準化された</li>
+<li>主要ブラウザは対応済み</li>
 </ul>
 </li>
 <li><strong>QUIC（UDPベース）</strong> 上で動作
@@ -225,9 +226,6 @@ img[alt~=&quot;center&quot;] {
 </ul>
 </li>
 </ul>
-<div class="info">
-  高速で安定した環境の場合、HTTP/2よりも遅くなるとも言われている
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-theme="gaia" data-style=":root {
   --color-background: #fff;
@@ -290,7 +288,7 @@ img[alt~=&quot;center&quot;] {
   content: &quot;📝&quot;;
 }
 ;">
-<h1 id="http-%E3%81%AE%E3%83%AC%E3%82%A4%E3%83%A4%E3%83%BC">HTTP のレイヤー</h1>
+<h1 id="http-%E3%81%AE%E6%A7%8B%E9%80%A0">HTTP の構造</h1>
 <p><img src="img/http_layer.svg" alt="center" style="height:500px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-theme="gaia" data-style=":root {
@@ -663,7 +661,7 @@ img[alt~=&quot;center&quot;] {
 <li>現状の OpenJDK 実装だと…
 <ol>
 <li><strong>HTTP/3 で</strong>接続を試みる</li>
-<li>失敗（拒否された、またはタイムアウトした）したら、以降そのドメインは HTTP/2 にフォールバック</li>
+<li>失敗（拒否された、またはタイムアウトした）したら、以降そのドメインは HTTP/2（or 1.1）にフォールバック</li>
 </ol>
 </li>
 </ul>
@@ -735,13 +733,13 @@ img[alt~=&quot;center&quot;] {
 ;">
 <h2 id="alt_svc">ALT_SVC</h2>
 <ol>
-<li><strong>HTTP/2 で</strong>接続する</li>
+<li><strong>HTTP/2（or 1.1）で</strong>接続する</li>
 <li>レスポンスヘッダーに <code>alt-svc: h3</code> が含まれていたら、次回からそのドメインに対して HTTP/3 で接続する</li>
 </ol>
 <hr />
 <ul>
 <li>ブラウザと同じ挙動</li>
-<li>HTTPS RR（リソースレコード）には未対応</li>
+<li>DNS の HTTPS RR（リソースレコード）には未対応</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-theme="gaia" data-style=":root {
@@ -885,13 +883,13 @@ img[alt~=&quot;center&quot;] {
 <li>
 <p>Java 26 で JEP 517 が入った</p>
 <ul>
-<li>HttpClient が HTTP/3 に対応した</li>
+<li>HTTP Client API が HTTP/3 に対応した</li>
 </ul>
 </li>
 <li>
 <p>使い方はとても簡単</p>
 <ul>
-<li>ただし、オプションの指定に注意</li>
+<li>オプションの指定で挙動が変わる点に注意</li>
 </ul>
 </li>
 <li>
